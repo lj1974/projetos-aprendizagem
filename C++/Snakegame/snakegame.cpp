@@ -1,7 +1,8 @@
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
-#include <conio.h>
+#include <unistd.h>
+
 using namespace std;
 
 #define clear system("cls");
@@ -18,6 +19,7 @@ public:
   void Message();
   int Click(char key);
   void Input(int id_key);
+  void Move();
   void Logic();
 
 private:
@@ -101,6 +103,7 @@ void Snake::Draw()
 void Snake::Message()
 {
   cout << endl;
+  cout << "SCORE: " << score << endl;
   cout << "Choose one of the four directions to move the snake\nUP(W), LEFT(A), RIGHT(D) OR DOWN(S) LETTER KEY.\nYour objective is to eat the fruit 'Q'\nGood luck! Or press 'X' to surrender...\n";
 }
 
@@ -167,6 +170,7 @@ void Snake::Input(int id_key)
 
   case 5:
     gameOver = true;
+    cout << "\nEND!" << endl;
     break;
 
   case 0:
@@ -174,9 +178,8 @@ void Snake::Input(int id_key)
   }
 }
 
-void Snake::Logic()
+void Snake::Move()
 {
-
   switch (dir)
   {
   case UP:
@@ -200,7 +203,26 @@ void Snake::Logic()
   }
 }
 
-int main()
+void Snake::Logic()
+{
+  // IF SNAKES HIT WALLS
+  if (x <= 0 || x >= height || y <= 0 || y >= width)
+  {
+    gameOver = true;
+    cout << "\nGAME OVER!\n";
+  }
+
+  // If snake reaches the fruit
+  // then update the score
+  if (x == fruitX && y == fruitY)
+  {
+    fruitX = rand() % height;
+    fruitY = rand() % width;
+    score++;
+  }
+}
+
+int main(int argc, char *argv[])
 {
 
   Snake show;
@@ -225,6 +247,7 @@ int main()
     show.Input(idNum);
     stdinbuff;
 
+    show.Move();
     show.Logic();
   }
 

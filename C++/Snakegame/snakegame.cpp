@@ -28,6 +28,10 @@ private:
   int x, y, fruitX, fruitY;
   char fruit = 'Q';
   int score;
+  // bool Add;
+  // int tail = 0;
+
+  int answer;
 
   enum Direction
   {
@@ -46,6 +50,7 @@ void Snake::Setup()
   srand(time(NULL));
 
   gameOver = false;
+  // Add = false;
   dir = STOP;
   x = height / 2;
   y = width / 2;
@@ -80,8 +85,12 @@ void Snake::Draw()
       }
       else if (i == x && j == y)
       {
-        cout << "<";
+        cout << "O";
       }
+      // else if (i == (x + tail) && j == y && Add)
+      // {
+      //   cout << "o";
+      // }
       else if (i == fruitX && j == fruitY)
       {
         cout << fruit;
@@ -92,7 +101,6 @@ void Snake::Draw()
       }
     }
   }
-
   for (int i = 0; i < width; i++)
   {
     cout << "#";
@@ -205,24 +213,29 @@ void Snake::Move()
 
 void Snake::Logic()
 {
-  // IF SNAKES HIT WALLS
-  if (x <= 0 || x >= height || y <= 0 || y >= width)
+  if (x == 0 || x == height || y == width || y == 0)
   {
     gameOver = true;
-    cout << "\nGAME OVER!\n";
+    cout << "\nGAME OVER\n\n";
+    cout << "Play again? (1/0)\t";
+    cin >> answer;
+    if (answer == 1)
+    {
+      Setup();
+    }
   }
 
-  // If snake reaches the fruit
-  // then update the score
   if (x == fruitX && y == fruitY)
   {
+    score++;
     fruitX = rand() % height;
     fruitY = rand() % width;
-    score++;
+    // Add = true;
+    // tail++;
   }
 }
 
-int main(int argc, char *argv[])
+int main(/*int argc, char *argv[])*/)
 {
 
   Snake show;

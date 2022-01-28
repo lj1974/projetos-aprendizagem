@@ -13,24 +13,7 @@ private:
     void patient();
     void consult();
 
-    bool checkPatient_exist();
-
 };
-
-class HospitalLog {
-public:
-    
-    void checkPatient_exist_db(string name);
-    bool checkPatient_exist();
-
-};
-
-bool HospitalMain::checkPatient_exist() {
-    bool toreturn;
-
-    toreturn = false;
-    return toreturn;
-}
 
 void HospitalMain::hall(){
     int ans;
@@ -60,7 +43,7 @@ void HospitalMain::option() {
     if(ans==1)
         patient();
     else if(ans==2){
-        checkp = checkPatient_exist();
+        // checkp = checkPatient_exist();
         if(checkp==false)
             patient();
 
@@ -78,6 +61,27 @@ void HospitalMain::patient() {
 void HospitalMain::consult() {
     cout <<"yes";
 }
+
+
+
+
+
+
+class HospitalLog {
+public:
+    
+    void checkPatient_exist_db(string name, string birthday);
+    bool checkPatient_exist();
+
+};
+
+bool HospitalLog::checkPatient_exist() {
+    bool toreturn;
+
+    toreturn = false;
+    return toreturn;
+} 
+
 
 
 int main() {
